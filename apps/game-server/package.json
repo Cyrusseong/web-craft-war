@@ -1,0 +1,25 @@
+{
+  "name": "game-server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "clean": "rm -rf dist",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@web-craft-war/shared-types": "*",
+    "@web-craft-war/game-logic": "*",
+    "colyseus": "^0.16.0",
+    "@colyseus/ws-transport": "^0.16.0",
+    "@colyseus/monitor": "^0.16.0"
+  },
+  "devDependencies": {
+    "@web-craft-war/tsconfig": "*",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "tsx": "^4.0.0"
+  }
+}

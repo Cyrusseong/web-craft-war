@@ -1,0 +1,30 @@
+name: Deploy Game Server
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/game-server/**'
+      - 'packages/shared-types/**'
+      - 'packages/game-logic/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npx turbo run lint --filter=game-server...
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only --config apps/game-server/fly.toml
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

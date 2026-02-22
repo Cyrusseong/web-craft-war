@@ -1,0 +1,71 @@
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+  pointer-events: auto;
+}
+
+.resources {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.html { color: var(--color-html); }
+.css { color: var(--color-css); }
+.js { color: var(--color-js); }
+
+.timer {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.unitCount {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  pointer-events: auto;
+}
+
+.produceBtn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.produceBtn:hover {
+  transform: scale(1.05);
+}
+
+.produceBtn:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+.htmlBtn { background: var(--color-html); }
+.cssBtn { background: var(--color-css); }
+.jsBtn { background: #b8860b; }
