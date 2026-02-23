@@ -5,67 +5,215 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  font-family: var(--font-pixel);
 }
+
+/* ─── 상단 바: 리소스 & 타이머 ─── */
 
 .topBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(to bottom, rgba(10, 10, 18, 0.9), rgba(10, 10, 18, 0.4), transparent);
   pointer-events: auto;
+  gap: 0.5rem;
 }
 
 .resources {
   display: flex;
-  gap: 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
+  gap: 0.75rem;
+  font-size: 0.5rem;
   font-variant-numeric: tabular-nums;
 }
 
-.html { color: var(--color-html); }
-.css { color: var(--color-css); }
-.js { color: var(--color-js); }
+.resourceItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(26, 26, 46, 0.8);
+  border: 1px solid var(--color-border);
+}
+
+.resourceIcon {
+  font-size: 0.5rem;
+  line-height: 1;
+}
+
+.resourceValue {
+  font-size: 0.5rem;
+  line-height: 1;
+}
+
+.html { color: var(--color-html); border-color: rgba(227, 76, 38, 0.4); }
+.css { color: var(--color-css); border-color: rgba(38, 77, 228, 0.4); }
+.js { color: var(--color-js); border-color: rgba(240, 219, 79, 0.4); }
 
 .timer {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 0.625rem;
   font-variant-numeric: tabular-nums;
+  color: var(--color-accent);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+  padding: 0.25rem 0.5rem;
+  background: rgba(26, 26, 46, 0.8);
+  border: 1px solid rgba(0, 255, 136, 0.3);
 }
 
 .unitCount {
-  font-size: 0.9rem;
+  font-size: 0.4375rem;
   color: var(--color-text-muted);
+  padding: 0.25rem 0.5rem;
+  background: rgba(26, 26, 46, 0.8);
+  border: 1px solid var(--color-border);
 }
+
+/* ─── 하단 바: 유닛 생산 패널 ─── */
 
 .bottomBar {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(to top, rgba(10, 10, 18, 0.9), rgba(10, 10, 18, 0.4), transparent);
   pointer-events: auto;
 }
 
 .produceBtn {
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  width: 4.5rem;
+  height: 3.5rem;
+  font-family: var(--font-pixel);
+  font-size: 0.4375rem;
   color: white;
-  transition: transform 0.1s, opacity 0.1s;
-}
-
-.produceBtn:hover {
-  transform: scale(1.05);
+  background: rgba(26, 26, 46, 0.9);
+  border: 2px solid var(--color-border);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5);
+  transition: transform 0.05s, box-shadow 0.05s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .produceBtn:active {
-  transform: scale(0.95);
-  opacity: 0.8;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
 
-.htmlBtn { background: var(--color-html); }
-.cssBtn { background: var(--color-css); }
-.jsBtn { background: #b8860b; }
+.btnIcon {
+  font-size: 0.625rem;
+  line-height: 1;
+}
+
+.btnCost {
+  font-size: 0.375rem;
+  opacity: 0.7;
+}
+
+.htmlBtn { border-color: rgba(227, 76, 38, 0.6); }
+.htmlBtn .btnIcon { color: var(--color-html); }
+.cssBtn { border-color: rgba(38, 77, 228, 0.6); }
+.cssBtn .btnIcon { color: var(--color-css); }
+.jsBtn { border-color: rgba(240, 219, 79, 0.6); }
+.jsBtn .btnIcon { color: var(--color-js); }
+
+/* ─── 모바일 터치 안내 ─── */
+
+.touchHint {
+  position: absolute;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.375rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  opacity: 0.6;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ─── 반응형 ─── */
+
+@media (max-width: 768px) {
+  .topBar {
+    padding: 0.375rem 0.5rem;
+  }
+
+  .resources {
+    gap: 0.375rem;
+  }
+
+  .resourceItem {
+    padding: 0.1875rem 0.375rem;
+  }
+
+  .resourceIcon,
+  .resourceValue {
+    font-size: 0.4375rem;
+  }
+
+  .timer {
+    font-size: 0.5rem;
+  }
+
+  .unitCount {
+    font-size: 0.375rem;
+  }
+
+  .bottomBar {
+    gap: 0.375rem;
+    padding: 0.375rem 0.5rem;
+  }
+
+  .produceBtn {
+    width: 3.75rem;
+    height: 3rem;
+    font-size: 0.375rem;
+  }
+
+  .btnIcon {
+    font-size: 0.5rem;
+  }
+
+  .btnCost {
+    font-size: 0.3125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resources {
+    gap: 0.25rem;
+  }
+
+  .resourceItem {
+    padding: 0.125rem 0.25rem;
+  }
+
+  .produceBtn {
+    width: 3.25rem;
+    height: 2.75rem;
+  }
+
+  .timer {
+    font-size: 0.4375rem;
+  }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .topBar {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .bottomBar {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .produceBtn {
+    width: 4rem;
+    height: 2.5rem;
+  }
+}

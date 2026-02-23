@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Application, Container } from 'pixi.js'
+import { Application } from 'pixi.js'
 import { GameRenderer } from '@/lib/game/GameRenderer'
 import { GameHUD } from '@/components/hud/GameHUD'
 import type { Resources } from '@web-craft-war/shared-types'
@@ -24,11 +24,12 @@ export default function GameCanvas() {
     async function init() {
       app = new Application()
       await app.init({
-        background: '#0a0e17',
+        background: 0x0a0a12,
         resizeTo: window,
-        antialias: true,
-        resolution: window.devicePixelRatio || 1,
-        autoDensity: true,
+        antialias: false,       // Pixel-perfect: no antialiasing
+        resolution: 1,          // Pixel-perfect: fixed 1x resolution
+        autoDensity: false,
+        roundPixels: true,      // Snap to pixel grid
       })
 
       if (destroyed) {
@@ -36,17 +37,18 @@ export default function GameCanvas() {
         return
       }
 
-      canvasRef.current!.appendChild(app.canvas as HTMLCanvasElement)
+      const canvas = app.canvas as HTMLCanvasElement
+      canvas.style.imageRendering = 'pixelated'
+      canvas.style.touchAction = 'none'
+      canvasRef.current!.appendChild(canvas)
 
       const renderer = new GameRenderer(app)
       rendererRef.current = renderer
       renderer.init()
 
-      // 게임 루프: 리소스, 타이머 업데이트
       app.ticker.add((ticker) => {
         const dt = ticker.deltaMS / 1000
         renderer.update(dt)
-
         setResources(renderer.getResources())
         setRoundTime(renderer.getRoundTime())
         setUnitCount(renderer.getUnitCount())
@@ -68,8 +70,8 @@ export default function GameCanvas() {
   }, [])
 
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-      <div ref={canvasRef} style={{ width: '100%', height: '100%' }} />
+    <div style={{ position: 'relative', width: '100vw', height: '100dvh', overflow: 'hidden' }}>
+      <div ref={canvasRef} style={{ width: '100%', height: '100%', touchAction: 'none' }} />
       <GameHUD
         resources={resources}
         roundTime={roundTime}
